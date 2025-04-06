@@ -12,6 +12,17 @@ export const getAppointments = createAsyncThunk(
     }
 );
 
+export const getAppointment = createAsyncThunk(
+    'appointments',
+    async ({id, token}, thunkAPI) => {
+      try {
+        return await appointmentService.getAppointment(id, token);
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
+    }
+);
+
 export const deleteAppointment = createAsyncThunk(
   'appointments/delete',
   async ({id, token}, thunkAPI) => {
@@ -25,9 +36,9 @@ export const deleteAppointment = createAsyncThunk(
 
 export const updateAppointment = createAsyncThunk(
     'appointments/put',
-    async ({id, resId, note, seat, token}, thunkAPI) => {
+    async ({data, seat, note, token}, thunkAPI) => {
       try {
-        return await appointmentService.updateAppointment(id, note, seat, token);
+        return await appointmentService.updateAppointment(data, seat, note, token);
       } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data);
       }

@@ -7,6 +7,7 @@ import {
   FaStickyNote,
 } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteAppointment, getAppointments } from "../features/appointment/appointmentSlice";
 
@@ -33,7 +34,8 @@ function Home() {
   const dispatch = useDispatch();
   const onDeleteSubmit = (e, id) => {
     e.preventDefault();
-    dispatch(deleteAppointment({id, token}));
+    dispatch(deleteAppointment({id, token})).unwrap();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -105,7 +107,9 @@ function Home() {
                   style={{ backgroundColor: "#004080" }}
                   className="btn btnblock"
                 >
-                  Edit
+                    <Link to={`/appointment/${item._id}`} style={{ color: 'white', textDecoration: 'none' }}>
+                        Edit
+                    </Link>
                 </button>
                 <button
                   onClick={(e) => onDeleteSubmit(e, item._id)}

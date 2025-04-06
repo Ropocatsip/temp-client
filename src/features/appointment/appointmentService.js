@@ -13,9 +13,21 @@ const getAppointments = async (token) => {
   return response.data;
 };
 
-const updateAppointment = async (id, resId, note, seat, token) => {
-  let request = {"seat": seat, "note": note};
-  const response = await axios.put(API_URL + id, request, {
+const getAppointment = async (id, token) => {
+  const response = await axios.get(API_URL + id,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }
+  );
+  return response.data;
+};
+
+const updateAppointment = async (data, seat, note, token) => {
+  let request = {"seat": seat, "note": note, "restaurant": data.restaurant._id};
+  const response = await axios.put(API_URL + data._id, request, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -38,6 +50,7 @@ const deleteAppointment = async (id, token) => {
 const appointmentService = {
   getAppointments,
   updateAppointment,
-  deleteAppointment
+  deleteAppointment,
+  getAppointment
 };
 export default appointmentService;
