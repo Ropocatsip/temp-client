@@ -103,14 +103,14 @@ function Home() {
                   </strong>{" "}
                   {formatPhone(item.restaurant?.tel) || "N/A"}
                 </p>
-                <button
-                  style={{ backgroundColor: "#004080" }}
-                  className="btn btnblock"
-                >
                     <Link to={`/appointment/${item._id}`} style={{ color: 'white', textDecoration: 'none' }}>
+                      <button
+                        style={{ backgroundColor: "#004080" }}
+                        className="btn btnblock"
+                      >
                         Edit
+                      </button>
                     </Link>
-                </button>
                 <button
                   onClick={(e) => onDeleteSubmit(e, item._id)}
                   style={{ marginLeft: "20px", backgroundColor: "#b30000" }}
